@@ -1,8 +1,8 @@
 {
   "name": "chat-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Sistema de mensagens com NestJS, MySQL e JWT.",
+  "author": "José Eduardo Martins",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
