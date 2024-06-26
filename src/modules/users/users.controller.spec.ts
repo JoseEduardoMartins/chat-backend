@@ -10,48 +10,36 @@ const findResponse = [
   new User({
     id: 1,
     name: 'test-1',
-    birthdate: new Date('2000-03-30'),
     phone: '48 9 9999 9999',
-    tax_id: '999.999.999-99',
     email: 'teste1@email.com',
     password: 'teste1',
     security_code: '123456',
-    address_id: 1,
   }),
   new User({
     id: 2,
     name: 'test-2',
-    birthdate: new Date('2000-03-30'),
     phone: '48 9 9999 9999',
-    tax_id: '999.999.999-99',
     email: 'teste2@email.com',
     password: 'teste2',
     security_code: '123456',
-    address_id: 2,
   }),
   new User({
     id: 3,
     name: 'test-3',
-    birthdate: new Date('2000-03-30'),
     phone: '48 9 9999 9999',
-    tax_id: '999.999.999-99',
     email: 'teste3@email.com',
     password: 'teste3',
     security_code: '123456',
-    address_id: 3,
   }),
 ];
 
 const findOneResponse = new User({
   id: 1,
   name: 'test-1',
-  birthdate: new Date('2000-03-30'),
   phone: '48 9 9999 9999',
-  tax_id: '999.999.999-99',
   email: 'teste1@email.com',
   password: 'teste1',
   security_code: '123456',
-  address_id: 4,
 });
 
 const createdResponse = { id: 1 };
@@ -127,13 +115,10 @@ describe('UsersController', () => {
   describe('create', () => {
     const body: CreateUserDto = {
       name: 'test-1',
-      birthdate: new Date('2000-03-30'),
       phone: '48 9 9999 9999',
-      tax_id: '999.999.999-99',
       email: 'teste1@email.com',
       password: 'teste1',
       security_code: '123456',
-      address_id: 1,
     };
 
     it('should create a new user entity successfuly', async () => {
@@ -155,13 +140,10 @@ describe('UsersController', () => {
 
     const body: UpdateUserDto = {
       name: 'test-1',
-      birthdate: new Date('2000-03-30'),
       phone: '48 9 9999 9999',
-      tax_id: '999.999.999-99',
       email: 'teste1@email.com',
       password: 'teste1',
       security_code: '123456',
-      address_id: 1,
     };
 
     it('should update a user entity successfuly', async () => {
