@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: 'chat-db'
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: chat-db
+
+  chat-backend:
+    container_name: 'chat-backend'
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      APP_PORT: 3000
+      DB_TYPE: 'mysql'
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: 'chat-db'
+      DB_USERNAME: 'root'
+      DB_PASSWORD: 'root'
+      MAIL_TO: 'sandbox.smtp.mailtrap.io'
+      MAIL_HOST: 'sandbox.smtp.mailtrap.io'
+      MAIL_PORT: 2525
+      MAIL_USER: 'da2c23ba6e7c28'
+      MAIL_PASSWORD: 'f3962707801021'
+    depends_on:
+      - db
