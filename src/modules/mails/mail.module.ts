@@ -24,7 +24,7 @@ import { MailService } from './mail.service';
           from: configService.get<string>('mail.to'),
         },
         template: {
-          dir: process.cwd() + '/src/modules/mail/templates/',
+          dir: process.cwd() + '/src/modules/mails/templates/',
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,

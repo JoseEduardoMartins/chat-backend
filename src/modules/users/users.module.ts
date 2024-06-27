@@ -11,7 +11,7 @@ import { UsersService } from './users.service';
   controllers: [UsersController],
   exports: [TypeOrmModule],
 })
-export class UsersModule implements NestModule {
+export class UserModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
     consumer.apply(AuthMiddleware).forRoutes(UsersController);
   }

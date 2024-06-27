@@ -9,7 +9,8 @@ import mailConfig from './config/mail.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContactsModule } from './modules/contacts/contact.module';
 import { MailModule } from './modules/mails/mail.module';
-import { UsersModule } from './modules/users/users.module';
+import { MessageModule } from './modules/messages/message.module';
+import { UserModule } from './modules/users/users.module';
 //DECORATORS
 import { ExistConstraint } from './common/decorators/is-exist.validator';
 import { UniqueConstraint } from './common/decorators/is-unique.validator';
@@ -39,7 +40,8 @@ import { UniqueConstraint } from './common/decorators/is-unique.validator';
     AuthModule,
     ContactsModule,
     MailModule,
-    UsersModule,
+    MessageModule,
+    UserModule,
   ],
   controllers: [],
   providers: [UniqueConstraint, ExistConstraint],
