@@ -13,7 +13,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { generateRandomText } from 'src/common/helpers/string';
 import { domainFormatter } from '../../common/helpers/domain-formater';
-import { MailService } from '../mail/mail.service';
+import { MailService } from '../mails/mail.service';
 import { UsersService } from '../users/users.service';
 import { ConfirmAuthDto } from './dto/confirm-auth.dto';
 import { LoginAuthDto } from './dto/login-auth.dto';

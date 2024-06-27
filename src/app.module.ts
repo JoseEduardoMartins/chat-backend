@@ -8,7 +8,7 @@ import mailConfig from './config/mail.config';
 //MODULES
 import { AuthModule } from './modules/auth/auth.module';
 import { ContactsModule } from './modules/contacts/contact.module';
-import { MailModule } from './modules/mail/mail.module';
+import { MailModule } from './modules/mails/mail.module';
 import { UsersModule } from './modules/users/users.module';
 //DECORATORS
 import { ExistConstraint } from './common/decorators/is-exist.validator';
