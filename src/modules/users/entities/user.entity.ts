@@ -1,88 +1,97 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({
+  name: 'user',
+  orderBy: {
+    id: 'ASC',
+  },
+  engine: 'InnoDB',
+  synchronize: true,
+})
 export class User {
   @PrimaryGeneratedColumn({
-    name: 'id',
     type: 'int',
+    name: 'id',
   })
   id: number;
 
   @Column({
-    name: 'name',
     type: 'varchar',
+    name: 'name',
     length: 300,
   })
   name: string;
 
   @Column({
-    name: 'phone',
     type: 'varchar',
+    name: 'phone',
     length: 50,
+    unique: true,
   })
   phone: string;
 
   @Column({
-    name: 'email',
     type: 'varchar',
+    name: 'email',
     length: 150,
+    unique: true,
   })
   email: string;
 
   @Column({
-    name: 'password',
     type: 'varchar',
+    name: 'password',
     length: 300,
   })
   password: string;
 
   @Column({
-    name: 'security_code',
     type: 'varchar',
+    name: 'security_code',
     length: 6,
     nullable: true,
   })
-  security_code?: string;
+  securityCode?: string;
 
   @Column({
-    name: 'is_actived',
     type: 'boolean',
+    name: 'is_actived',
     default: true,
   })
-  is_actived: boolean;
+  isActived: boolean;
 
   @Column({
+    type: 'boolean',
     name: 'is_verified',
-    type: 'boolean',
     default: false,
   })
-  is_verified: boolean;
+  isVerified: boolean;
 
   @Column({
+    type: 'boolean',
     name: 'is_deleted',
-    type: 'boolean',
     default: false,
   })
-  is_deleted: boolean;
+  isDeleted: boolean;
 
   @Column({
+    type: 'datetime',
     name: 'created_at',
-    type: 'datetime',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @Column({
+    type: 'datetime',
     name: 'updated_at',
-    type: 'datetime',
   })
-  updated_at: Date;
+  updatedAt: Date;
 
   @Column({
-    name: 'deleted_at',
     type: 'datetime',
+    name: 'deleted_at',
     nullable: true,
   })
-  deleted_at?: Date;
+  deletedAt?: Date;
 
   constructor(user?: Partial<User>) {
     this.id = user?.id;
@@ -90,5 +99,12 @@ export class User {
     this.phone = user?.phone;
     this.email = user?.email;
     this.password = user?.password;
+    this.securityCode = user?.securityCode;
+    this.isActived = user?.isActived;
+    this.isVerified = user?.isVerified;
+    this.isDeleted = user?.isDeleted;
+    this.createdAt = user?.createdAt;
+    this.updatedAt = user?.updatedAt;
+    this.deletedAt = user?.deletedAt;
   }
 }

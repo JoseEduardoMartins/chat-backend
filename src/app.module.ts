@@ -7,6 +7,7 @@ import databaseConfig from './config/database.config';
 import mailConfig from './config/mail.config';
 //MODULES
 import { AuthModule } from './modules/auth/auth.module';
+import { ContactsModule } from './modules/contacts/contact.module';
 import { MailModule } from './modules/mail/mail.module';
 import { UsersModule } from './modules/users/users.module';
 //DECORATORS
@@ -36,6 +37,7 @@ import { UniqueConstraint } from './common/decorators/is-unique.validator';
       inject: [ConfigService],
     }),
     AuthModule,
+    ContactsModule,
     MailModule,
     UsersModule,
   ],

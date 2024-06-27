@@ -25,11 +25,11 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<GenericCreateResponse> {
     const data = {
       ...createUserDto,
-      is_actived: true,
-      is_verified: false,
-      is_deleted: false,
-      created_at: new Date(),
-      updated_at: new Date(),
+      isActived: true,
+      isVerified: false,
+      isDeleted: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     const user = this.userRepository.create(data);
@@ -40,7 +40,7 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
     const data = {
       ...updateUserDto,
-      updated_at: new Date(),
+      updatedAt: new Date(),
     };
 
     const response = await this.userRepository.update({ id }, data);
@@ -49,9 +49,9 @@ export class UsersService {
 
   async remove(id: number): Promise<void> {
     const data = {
-      is_active: false,
-      is_deleted: true,
-      deleted_at: new Date(),
+      isActive: false,
+      isDeleted: true,
+      deletedAt: new Date(),
     };
 
     const response = await this.userRepository.update({ id }, data);

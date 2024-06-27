@@ -14,7 +14,7 @@ const findResponse = [
     phone: '48 9 9999 9999',
     email: 'teste1@email.com',
     password: 'teste1',
-    security_code: '123456',
+    securityCode: '123456',
   }),
   new User({
     id: 2,
@@ -22,7 +22,7 @@ const findResponse = [
     phone: '48 9 9999 9999',
     email: 'teste2@email.com',
     password: 'teste2',
-    security_code: '123456',
+    securityCode: '123456',
   }),
   new User({
     id: 3,
@@ -30,7 +30,7 @@ const findResponse = [
     phone: '48 9 9999 9999',
     email: 'teste3@email.com',
     password: 'teste3',
-    security_code: '123456',
+    securityCode: '123456',
   }),
 ];
 
@@ -40,7 +40,7 @@ const findOneResponse = new User({
   phone: '48 9 9999 9999',
   email: 'teste1@email.com',
   password: 'teste1',
-  security_code: '123456',
+  securityCode: '123456',
 });
 
 const createResponse = new User({
@@ -49,7 +49,7 @@ const createResponse = new User({
   phone: '48 9 9999 9999',
   email: 'teste1@email.com',
   password: 'teste1',
-  security_code: '123456',
+  securityCode: '123456',
 });
 
 const saveResponse = new User({
@@ -58,7 +58,7 @@ const saveResponse = new User({
   phone: '48 9 9999 9999',
   email: 'teste1@email.com',
   password: 'teste1',
-  security_code: '123456',
+  securityCode: '123456',
 });
 
 const createdResponse = { id: 1 };
@@ -137,7 +137,7 @@ describe('UsersService', () => {
       phone: '48 9 9999 9999',
       email: 'teste1@email.com',
       password: 'teste1',
-      security_code: '123456',
+      securityCode: '123456',
     };
 
     it('should create a new user entity successfuly', async () => {
@@ -162,7 +162,7 @@ describe('UsersService', () => {
       phone: '48 9 9999 9999',
       email: 'teste1@email.com',
       password: 'teste1',
-      security_code: '123456',
+      securityCode: '123456',
     };
 
     it('should update a user entity successfuly', async () => {

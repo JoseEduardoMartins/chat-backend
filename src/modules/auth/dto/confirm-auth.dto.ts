@@ -10,5 +10,5 @@ export class ConfirmAuthDto {
   @ApiProperty({ required: false })
   @IsString()
   @Length(6, 6)
-  security_code?: string;
+  securityCode?: string;
 }

@@ -1,15 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsNumber,
-  IsString,
-  IsDate,
-  IsBoolean,
-  IsEmail,
   IsArray,
-  Length,
+  IsBoolean,
+  IsDate,
+  IsEmail,
   IsOptional,
+  IsString,
+  Length,
 } from 'class-validator';
-import { Transform } from 'class-transformer';
 import { GenericParamsDto } from '../../../common/dtos/generic-params.dto';
 
 export class FiltersUserDto {
@@ -20,21 +18,10 @@ export class FiltersUserDto {
   name?: string;
 
   @ApiProperty({ required: false })
-  @IsDate()
-  @IsOptional()
-  birthdate?: Date;
-
-  @ApiProperty({ required: false })
   @IsString()
   @Length(0, 50)
   @IsOptional()
   phone?: string;
-
-  @ApiProperty({ required: false })
-  @IsString()
-  @Length(0, 50)
-  @IsOptional()
-  tax_id?: string;
 
   @ApiProperty({ required: false })
   @IsEmail()
@@ -50,51 +37,39 @@ export class FiltersUserDto {
 
   @ApiProperty({ required: false })
   @IsString()
-  @Length(0, 300)
-  @IsOptional()
-  photo?: string;
-
-  @ApiProperty({ required: false })
-  @IsString()
   @Length(0, 6)
   @IsOptional()
-  security_code?: string;
+  securityCode?: string;
 
   @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
-  is_active?: boolean;
+  isActive?: boolean;
 
   @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
-  is_verified?: boolean;
+  isVerified?: boolean;
 
   @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
-  is_deleted?: boolean;
+  isDeleted?: boolean;
 
   @ApiProperty({ required: false })
   @IsDate()
   @IsOptional()
-  created_at?: Date;
+  createdAt?: Date;
 
   @ApiProperty({ required: false })
   @IsDate()
   @IsOptional()
-  updated_at?: Date;
+  updatedAt?: Date;
 
   @ApiProperty({ required: false })
   @IsDate()
   @IsOptional()
-  deleted_at?: Date;
-
-  @ApiProperty({ required: false })
-  @IsNumber()
-  @Transform(({ value }) => Number(value))
-  @IsOptional()
-  address_id?: number;
+  deletedAt?: Date;
 }
 
 export class ParamsUserDto extends GenericParamsDto<FiltersUserDto> {}

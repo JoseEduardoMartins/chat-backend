@@ -51,15 +51,15 @@ export class AuthController {
     if (user?.password !== password)
       throw new UnauthorizedException(['Invalid email or password']);
 
-    if (!user.is_actived)
+    if (!user.isActived)
       throw new UnauthorizedException(['User is not active, check your email']);
 
-    if (!user.is_verified)
+    if (!user.isVerified)
       throw new UnauthorizedException([
         'User is not verified, check your email',
       ]);
 
-    if (user.is_deleted)
+    if (user.isDeleted)
       throw new UnauthorizedException(['User is deleted, check your email']);
 
     const token = await this.jwtService.signAsync({
@@ -78,13 +78,13 @@ export class AuthController {
     });
 
     delete user.password;
-    delete user.security_code;
-    delete user.is_actived;
-    delete user.is_verified;
-    delete user.is_deleted;
-    delete user.created_at;
-    delete user.updated_at;
-    delete user.deleted_at;
+    delete user.securityCode;
+    delete user.isActived;
+    delete user.isVerified;
+    delete user.isDeleted;
+    delete user.createdAt;
+    delete user.updatedAt;
+    delete user.deletedAt;
 
     return {
       token,
@@ -99,22 +99,20 @@ export class AuthController {
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   async register(@Body() registerAuthDto: RegisterAuthDto) {
-    const user = { ...registerAuthDto };
-
-    const security_code = generateRandomText(6, '123456789');
+    const securityCode = generateRandomText(6, '123456789');
 
     const response = await this.usersService.create({
-      ...user,
-      security_code,
+      ...registerAuthDto,
+      securityCode,
     });
 
     this.mailService.sendMail({
-      to: user.email,
+      to: registerAuthDto.email,
       subject: 'Welcome to Nice App! Confirm your Email',
       template: './welcome',
       context: {
-        name: user.name,
-        security_code,
+        name: registerAuthDto.name,
+        securityCode,
       },
     });
 
@@ -128,21 +126,21 @@ export class AuthController {
   @Post('confirm')
   @HttpCode(HttpStatus.NO_CONTENT)
   async confirm(@Body() confirmAuthDto: ConfirmAuthDto) {
-    const { email, security_code } = confirmAuthDto;
+    const { email, securityCode } = confirmAuthDto;
 
     const [user] = await this.usersService.find({
-      select: ['id', 'security_code'],
+      select: ['id', 'securityCode'],
       where: { email },
     });
 
     if (!user) throw new UnauthorizedException('Invalid email');
 
-    if (user?.security_code !== security_code)
+    if (user?.securityCode !== securityCode)
       throw new UnauthorizedException('Invalid code');
 
     await this.usersService.update(user.id, {
-      security_code: null,
-      is_verified: true,
+      securityCode: null,
+      isVerified: true,
     });
   }
 }

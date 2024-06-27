@@ -6,5 +6,5 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
-  is_verified?: boolean;
+  isVerified?: boolean;
 }

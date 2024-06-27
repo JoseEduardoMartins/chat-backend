@@ -33,5 +33,5 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   @Length(6, 6)
-  security_code?: string;
+  securityCode?: string;
 }
