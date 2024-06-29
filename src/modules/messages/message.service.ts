@@ -19,7 +19,13 @@ export class MessagesService {
   }
 
   findOne(id: number): Promise<Message> {
-    return this.messageRepository.findOne({ where: { id } });
+    return this.messageRepository.findOne({
+      where: { id },
+      relations: {
+        sender: true,
+        receiver: true,
+      },
+    });
   }
 
   async create(

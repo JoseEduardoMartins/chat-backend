@@ -1,5 +1,5 @@
 import { User } from 'src/modules/users/entities/user.entity';
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({
   name: 'contact',
@@ -16,10 +16,17 @@ export class Contact {
   })
   id: number;
 
+  @Column({
+    type: 'varchar',
+    name: 'name',
+    length: 300,
+  })
+  name: string;
+
   @ManyToOne(() => User, (user) => user.contacts)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.contacts)
+  @ManyToOne(() => User, (user) => user.userContacts)
   userContact: User;
 
   constructor(contact?: Partial<Contact>) {

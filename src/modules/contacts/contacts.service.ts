@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericCreateResponse } from 'src/common/interfaces/generic-response';
 import { Repository } from 'typeorm';
-import { User } from '../users/entities/user.entity';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { RemoveContactDto } from './dto/remove--contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
@@ -13,17 +12,10 @@ export class ContactsService {
   constructor(
     @InjectRepository(Contact)
     private contactRepository: Repository<Contact>,
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
   ) {}
 
   find(): Promise<Contact[]> {
-    return this.contactRepository.find({
-      relations: {
-        user: true,
-        userContact: true,
-      },
-    });
+    return this.contactRepository.find();
   }
 
   findOne(id: number): Promise<Contact> {

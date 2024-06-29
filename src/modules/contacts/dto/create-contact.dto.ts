@@ -1,24 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNumber, IsOptional, IsString, Length } from 'class-validator';
 import { Exist } from 'src/common/decorators/is-exist.decorator';
 import { User } from 'src/modules/users/entities/user.entity';
 
-export class CreateContactUserDto {
+export class CreateContactDto {
+  @ApiProperty({ required: false })
+  @IsString()
+  @Length(0, 300)
+  @IsOptional()
+  name?: string;
+
   @ApiProperty({ required: true })
   @IsNumber()
   @Exist(User, 'id')
-  id: number;
-}
+  userId: number;
 
-export class CreateContactDto {
-  @ApiProperty({ required: true, type: CreateContactUserDto })
-  @ValidateNested()
-  @Type(() => CreateContactUserDto)
-  user: CreateContactUserDto;
-
-  @ApiProperty({ required: true, type: CreateContactUserDto })
-  @ValidateNested()
-  @Type(() => CreateContactUserDto)
-  userContact: CreateContactUserDto;
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @Exist(User, 'id')
+  userContactId: number;
 }

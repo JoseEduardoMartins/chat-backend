@@ -1,18 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { ValidateNested, IsOptional } from 'class-validator';
-import { CreateContactUserDto } from './create-contact.dto';
+import { IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateContactDto {
-  @ApiProperty({ required: false, type: CreateContactUserDto })
-  @ValidateNested()
-  @Type(() => CreateContactUserDto)
+  @ApiProperty({ required: false })
+  @IsString()
+  @Length(0, 300)
   @IsOptional()
-  user: CreateContactUserDto;
-
-  @ApiProperty({ required: true, type: CreateContactUserDto })
-  @ValidateNested()
-  @Type(() => CreateContactUserDto)
-  @IsOptional()
-  userContact: CreateContactUserDto;
+  name?: string;
 }

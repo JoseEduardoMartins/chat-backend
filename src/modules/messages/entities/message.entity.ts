@@ -16,10 +16,10 @@ export class Message {
   })
   id: number;
 
-  @ManyToOne(() => User, (user) => user.contacts)
+  @ManyToOne(() => User, (user) => user.messageSender)
   sender: User;
 
-  @ManyToOne(() => User, (user) => user.contacts)
+  @ManyToOne(() => User, (user) => user.messageReceiver)
   receiver: User;
 
   @Column({
