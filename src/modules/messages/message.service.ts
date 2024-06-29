@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericCreateResponse } from 'src/common/interfaces/generic-response';
 import { Repository } from 'typeorm';
-import { CreateContactDto } from './dto/create-message.dto';
-import { ParamsContactDto } from './dto/find-message.dto';
-import { UpdateContactDto } from './dto/update-message.dto';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { ParamsMessageDto } from './dto/find-message.dto';
+import { UpdateMessageDto } from './dto/update-message.dto';
 import { Message } from './entities/message.entity';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class MessagesService {
     private messageRepository: Repository<Message>,
   ) {}
 
-  find(paramsMessageDto?: ParamsContactDto): Promise<Message[]> {
+  find(paramsMessageDto?: ParamsMessageDto): Promise<Message[]> {
     return this.messageRepository.find(paramsMessageDto);
   }
 
@@ -23,7 +23,7 @@ export class MessagesService {
   }
 
   async create(
-    createMessageDto: CreateContactDto,
+    createMessageDto: CreateMessageDto,
   ): Promise<GenericCreateResponse> {
     const data = {
       ...createMessageDto,
@@ -39,7 +39,7 @@ export class MessagesService {
     return { id: response.id };
   }
 
-  async update(id: number, updateMessageDto: UpdateContactDto): Promise<void> {
+  async update(id: number, updateMessageDto: UpdateMessageDto): Promise<void> {
     const data = {
       ...updateMessageDto,
       isUpdated: true,

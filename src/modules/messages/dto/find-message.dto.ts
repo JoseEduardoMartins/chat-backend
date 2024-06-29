@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { GenericParamsDto } from '../../../common/dtos/generic-params.dto';
 
-export class FiltersContactDto {
+export class FiltersMessageDto {
   @ApiProperty({ required: false })
   @IsNumber()
   @IsOptional()
@@ -33,7 +33,7 @@ export class FiltersContactDto {
   @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
-  isActive?: boolean;
+  isActived?: boolean;
 
   @ApiProperty({ required: false })
   @IsBoolean()
@@ -61,9 +61,9 @@ export class FiltersContactDto {
   deletedAt?: Date;
 }
 
-export class ParamsContactDto extends GenericParamsDto<FiltersContactDto> {}
+export class ParamsMessageDto extends GenericParamsDto<FiltersMessageDto> {}
 
-export class FindContactDto extends FiltersContactDto {
+export class FindMessageDto extends FiltersMessageDto {
   @ApiProperty({ required: false })
   @IsArray()
   @IsOptional()

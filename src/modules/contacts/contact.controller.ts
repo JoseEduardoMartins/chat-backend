@@ -13,12 +13,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { getParams } from '../../common/helpers/params';
-import { CreateContactDto } from './dto/create-contact.dto';
-import { FindContactDto } from './dto/find-contact-dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
-import { RemoveContactDto } from './dto/remove--contact.dto';
 import { ContactsService } from './contacts.service';
+import { CreateContactDto } from './dto/create-contact.dto';
+import { RemoveContactDto } from './dto/remove--contact.dto';
+import { UpdateContactDto } from './dto/update-contact.dto';
 
 @ApiTags('Contact')
 @Controller('contacts')
@@ -30,9 +28,8 @@ export class ContactsController {
     tags: ['Contact'],
   })
   @Get()
-  find(@Query() query?: FindContactDto) {
-    const params = getParams(query);
-    return this.contactService.find(params);
+  find() {
+    return this.contactService.find();
   }
 
   @ApiOperation({

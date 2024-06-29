@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Contact } from 'src/modules/contacts/entities/contact.entity';
 
 @Entity({
   name: 'user',
@@ -92,6 +93,12 @@ export class User {
     nullable: true,
   })
   deletedAt?: Date;
+
+  @OneToMany(() => Contact, (contact) => contact.user)
+  contacts: Contact[];
+
+  @OneToMany(() => Contact, (contact) => contact.userContact)
+  userContacts: Contact[];
 
   constructor(user?: Partial<User>) {
     this.id = user?.id;

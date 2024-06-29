@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsString, IsEmail, Length } from 'class-validator';
 import { encrypt } from '../../../common/helpers/crypto';
 
-export class LoginAuthDto {
+export class SignInAuthDto {
   @ApiProperty({ required: true })
   @IsEmail()
   @Length(0, 150)

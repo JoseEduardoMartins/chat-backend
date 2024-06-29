@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -16,8 +17,8 @@ import { domainFormatter } from '../../common/helpers/domain-formater';
 import { MailService } from '../mails/mail.service';
 import { UsersService } from '../users/users.service';
 import { ConfirmAuthDto } from './dto/confirm-auth.dto';
-import { LoginAuthDto } from './dto/login-auth.dto';
-import { RegisterAuthDto } from './dto/register-auth.dto';
+import { SignInAuthDto } from './dto/sign-in-auth.dto';
+import { SignUpAuthDto } from './dto/sign-up-auth.dto';
 
 @ApiTags('Auth')
 @ApiBearerAuth()
@@ -33,12 +34,12 @@ export class AuthController {
     description: 'Autenticar de usuario.',
     tags: ['Auth'],
   })
-  @Post('login')
+  @Post('sign-in')
   @HttpCode(HttpStatus.OK)
   async signIn(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
-    @Body() loginAuthDto: LoginAuthDto,
+    @Body() loginAuthDto: SignInAuthDto,
   ): Promise<any> {
     const { email, password } = loginAuthDto;
 
@@ -63,10 +64,8 @@ export class AuthController {
       throw new UnauthorizedException(['User is deleted, check your email']);
 
     const token = await this.jwtService.signAsync({
-      sub: user.id,
-      name: user.name,
+      role: 'user',
       email: user.email,
-      password: user.password,
     });
 
     const domain = domainFormatter(request.get('origin'));
@@ -96,9 +95,9 @@ export class AuthController {
     description: 'Registrar usuario.',
     tags: ['Auth'],
   })
-  @Post('register')
+  @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() registerAuthDto: RegisterAuthDto) {
+  async signUp(@Body() registerAuthDto: SignUpAuthDto) {
     const securityCode = generateRandomText(6, '123456789');
 
     const response = await this.usersService.create({
@@ -123,7 +122,7 @@ export class AuthController {
     description: 'Confirmar email de usuario.',
     tags: ['Auth'],
   })
-  @Post('confirm')
+  @Post('confirm-sign-up')
   @HttpCode(HttpStatus.NO_CONTENT)
   async confirm(@Body() confirmAuthDto: ConfirmAuthDto) {
     const { email, securityCode } = confirmAuthDto;
@@ -142,5 +141,29 @@ export class AuthController {
       securityCode: null,
       isVerified: true,
     });
+  }
+
+  @ApiOperation({
+    description: 'Recuperar informações de usuario.',
+    tags: ['Auth'],
+  })
+  @Get('recover-user-imformation')
+  async recoverUserImformation(@Req() request: Request) {
+    const token = request.headers.token || request.cookies.token;
+    const decodedToken = await this.jwtService.decode(token);
+
+    const { email } = decodedToken;
+
+    const [user] = await this.usersService.find({
+      select: ['id', 'name', 'phone', 'email', 'password'],
+      where: { email },
+    });
+
+    const renewedToken = await this.jwtService.signAsync({
+      role: 'user',
+      email: user.email,
+    });
+
+    return { user, token: renewedToken };
   }
 }

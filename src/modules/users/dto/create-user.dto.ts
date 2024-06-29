@@ -28,7 +28,9 @@ export class CreateUserDto {
   @Transform(({ value }) => encrypt(value))
   @Length(8, 300)
   password: string;
+}
 
+export class CreateUserServiceDto extends CreateUserDto {
   @ApiProperty({ required: false })
   @IsString()
   @IsOptional()

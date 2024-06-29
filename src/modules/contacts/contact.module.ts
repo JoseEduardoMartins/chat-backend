@@ -4,10 +4,15 @@ import { AuthMiddleware } from 'src/common/middlewares/auth.middleware';
 import { ContactsController } from './contact.controller';
 import { ContactsService } from './contacts.service';
 import { Contact } from './entities/contact.entity';
+import { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Contact])],
-  providers: [ContactsService],
+  imports: [
+    TypeOrmModule.forFeature([Contact]),
+    TypeOrmModule.forFeature([User]),
+  ],
+  providers: [ContactsService, UsersService],
   controllers: [ContactsController],
   exports: [TypeOrmModule],
 })

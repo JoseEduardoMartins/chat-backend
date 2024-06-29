@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericCreateResponse } from 'src/common/interfaces/generic-response';
 import { Repository } from 'typeorm';
+import { User } from '../users/entities/user.entity';
 import { CreateContactDto } from './dto/create-contact.dto';
-import { ParamsContactDto } from './dto/find-contact-dto';
 import { RemoveContactDto } from './dto/remove--contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { Contact } from './entities/contact.entity';
@@ -13,21 +13,35 @@ export class ContactsService {
   constructor(
     @InjectRepository(Contact)
     private contactRepository: Repository<Contact>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
-  find(paramsContactDto?: ParamsContactDto): Promise<Contact[]> {
-    return this.contactRepository.find(paramsContactDto);
+  find(): Promise<Contact[]> {
+    return this.contactRepository.find({
+      relations: {
+        user: true,
+        userContact: true,
+      },
+    });
   }
 
   findOne(id: number): Promise<Contact> {
-    return this.contactRepository.findOne({ where: { id } });
+    return this.contactRepository.findOne({
+      where: { id },
+      relations: {
+        user: true,
+        userContact: true,
+      },
+    });
   }
 
   async create(
     createContactDto: CreateContactDto,
   ): Promise<GenericCreateResponse> {
-    const user = this.contactRepository.create(createContactDto);
-    const response = await this.contactRepository.save(user);
+    const constact = this.contactRepository.create(createContactDto);
+    const response = await this.contactRepository.save(constact);
+
     return { id: response.id };
   }
 

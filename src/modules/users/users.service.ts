@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GenericCreateResponse } from 'src/common/interfaces/generic-response';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserServiceDto } from './dto/create-user.dto';
 import { ParamsUserDto } from './dto/find-user-dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserServideDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -22,7 +22,9 @@ export class UsersService {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  async create(createUserDto: CreateUserDto): Promise<GenericCreateResponse> {
+  async create(
+    createUserDto: CreateUserServiceDto,
+  ): Promise<GenericCreateResponse> {
     const data = {
       ...createUserDto,
       isActived: true,
@@ -37,7 +39,7 @@ export class UsersService {
     return { id: response.id };
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<void> {
+  async update(id: number, updateUserDto: UpdateUserServideDto): Promise<void> {
     const data = {
       ...updateUserDto,
       updatedAt: new Date(),

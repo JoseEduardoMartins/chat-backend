@@ -14,9 +14,9 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { getParams } from '../../common/helpers/params';
-import { CreateContactDto } from './dto/create-message.dto';
-import { FindContactDto } from './dto/find-message.dto';
-import { UpdateContactDto } from './dto/update-message.dto';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { FindMessageDto } from './dto/find-message.dto';
+import { UpdateMessageDto } from './dto/update-message.dto';
 import { MessagesService } from './message.service';
 
 @ApiTags('Message')
@@ -29,7 +29,7 @@ export class MessagesController {
     tags: ['Message'],
   })
   @Get()
-  find(@Query() query?: FindContactDto) {
+  find(@Query() query?: FindMessageDto) {
     const params = getParams(query);
     return this.messagesService.find(params);
   }
@@ -49,8 +49,8 @@ export class MessagesController {
   })
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createUserDto: CreateContactDto) {
-    return this.messagesService.create(createUserDto);
+  create(@Body() createMessageDto: CreateMessageDto) {
+    return this.messagesService.create(createMessageDto);
   }
 
   @ApiOperation({
@@ -61,9 +61,9 @@ export class MessagesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateUserDto: UpdateContactDto,
+    @Body() updateMessageDto: UpdateMessageDto,
   ) {
-    const response = await this.messagesService.update(id, updateUserDto);
+    const response = await this.messagesService.update(id, updateMessageDto);
 
     if (response === null)
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);

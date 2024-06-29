@@ -5,7 +5,7 @@ import { Unique } from '../../../common/decorators/is-unique.decorator';
 import { encrypt } from '../../../common/helpers/crypto';
 import { User } from '../../users/entities/user.entity';
 
-export class RegisterAuthDto {
+export class SignUpAuthDto {
   @ApiProperty({ required: true })
   @IsString()
   @Length(0, 300)
