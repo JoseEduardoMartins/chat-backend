@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from 'src/modules/users/entities/user.entity';
 
 @Entity({
   name: 'message',
@@ -15,17 +16,11 @@ export class Message {
   })
   id: number;
 
-  @Column({
-    type: 'int',
-    name: 'sender_id',
-  })
-  senderId: number;
+  @ManyToOne(() => User, (user) => user.contacts)
+  sender: User;
 
-  @Column({
-    type: 'int',
-    name: 'receiver_id',
-  })
-  receiverId: number;
+  @ManyToOne(() => User, (user) => user.contacts)
+  receiver: User;
 
   @Column({
     type: 'int',
@@ -82,8 +77,8 @@ export class Message {
 
   constructor(message?: Partial<Message>) {
     this.id = message?.id;
-    this.senderId = message?.senderId;
-    this.receiverId = message?.receiverId;
+    this.sender = message?.sender;
+    this.receiver = message?.receiver;
     this.groupId = message?.groupId;
     this.content = message?.content;
     this.isActived = message?.isActived;

@@ -13,6 +13,7 @@ export class CreateUserDto {
 
   @ApiProperty({ required: true })
   @IsString()
+  @Transform(({ value }) => value.replace(/\D/g, ''))
   @Length(0, 50)
   @Unique(User, 'phone')
   phone: string;

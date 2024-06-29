@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Contact } from 'src/modules/contacts/entities/contact.entity';
+import { Message } from 'src/modules/messages/entities/message.entity';
 
 @Entity({
   name: 'user',
@@ -99,6 +100,12 @@ export class User {
 
   @OneToMany(() => Contact, (contact) => contact.userContact)
   userContacts: Contact[];
+
+  @OneToMany(() => Message, (message) => message.sender)
+  messageSender: Message[];
+
+  @OneToMany(() => Message, (message) => message.receiver)
+  messageReceiver: Message[];
 
   constructor(user?: Partial<User>) {
     this.id = user?.id;
