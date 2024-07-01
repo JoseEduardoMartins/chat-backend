@@ -15,7 +15,12 @@ export class ContactsService {
   ) {}
 
   find(): Promise<Contact[]> {
-    return this.contactRepository.find();
+    return this.contactRepository.find({
+      relations: {
+        user: true,
+        userContact: true,
+      },
+    });
   }
 
   findOne(id: number): Promise<Contact> {
@@ -31,10 +36,22 @@ export class ContactsService {
   async create(
     createContactDto: CreateContactDto,
   ): Promise<GenericCreateResponse> {
-    const constact = this.contactRepository.create(createContactDto);
-    const response = await this.contactRepository.save(constact);
+    const { name, userId, userContactId } = createContactDto;
 
-    return { id: response.id };
+    const data = {
+      name,
+      user: {
+        id: userId,
+      },
+      userContact: {
+        id: userContactId,
+      },
+    };
+
+    const constact = this.contactRepository.create(data);
+    const { id } = await this.contactRepository.save(constact);
+
+    return { id };
   }
 
   async update(id: number, updateContactDto: UpdateContactDto): Promise<void> {

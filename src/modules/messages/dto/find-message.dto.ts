@@ -69,3 +69,45 @@ export class FindMessageDto extends FiltersMessageDto {
   @IsOptional()
   select?: Array<string>;
 }
+
+export class SelectMessageServiceDto {
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  content?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  isActived?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  isUpdated?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  isDeleted?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  createdAt?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  updatedAt?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  deletedAt?: boolean;
+}
+
+export class FindMessageServiceDto {
+  select?: SelectMessageServiceDto;
+  where;
+}

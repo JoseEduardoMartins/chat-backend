@@ -15,15 +15,26 @@ export class MessagesService {
   ) {}
 
   find(paramsMessageDto?: ParamsMessageDto): Promise<Message[]> {
-    return this.messageRepository.find(paramsMessageDto);
+    return this.messageRepository.find({
+      ...paramsMessageDto,
+      relations: {
+        sender: true,
+        receiver: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
   }
 
   findOne(id: number): Promise<Message> {
     return this.messageRepository.findOne({
       where: { id },
       relations: {
-        sender: true,
         receiver: true,
+      },
+      order: {
+        createdAt: 'DESC',
       },
     });
   }
@@ -31,8 +42,17 @@ export class MessagesService {
   async create(
     createMessageDto: CreateMessageDto,
   ): Promise<GenericCreateResponse> {
+    const { senderId, receiverId, groupId, content } = createMessageDto;
+
     const data = {
-      ...createMessageDto,
+      sender: {
+        id: senderId,
+      },
+      receiver: {
+        id: receiverId,
+      },
+      groupId,
+      content,
       isActived: true,
       isUpdated: false,
       isDeleted: false,
@@ -41,8 +61,9 @@ export class MessagesService {
     };
 
     const message = this.messageRepository.create(data);
-    const response = await this.messageRepository.save(message);
-    return { id: response.id };
+    const { id } = await this.messageRepository.save(message);
+
+    return { id };
   }
 
   async update(id: number, updateMessageDto: UpdateMessageDto): Promise<void> {

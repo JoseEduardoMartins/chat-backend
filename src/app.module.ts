@@ -8,6 +8,7 @@ import mailConfig from './config/mail.config';
 //MODULES
 import { AuthModule } from './modules/auth/auth.module';
 import { ContactsModule } from './modules/contacts/contact.module';
+import { GroupModule } from './modules/group/groups.module';
 import { MailModule } from './modules/mails/mail.module';
 import { MessageModule } from './modules/messages/message.module';
 import { UserModule } from './modules/users/users.module';
@@ -39,6 +40,7 @@ import { UniqueConstraint } from './common/decorators/is-unique.validator';
     }),
     AuthModule,
     ContactsModule,
+    GroupModule,
     MailModule,
     MessageModule,
     UserModule,
